@@ -6,13 +6,13 @@ from tensorflow import keras
 # Define parameters for image processing and classification
 IMG_HEIGHT = 224
 IMG_WIDTH = 224
-THRESHOLD = 1.54
+THRESHOLD = 3.1
 
 # Load the trained MobileNetV2 model for image classification
 model = keras.models.load_model('D:\Downloads\Main Project\detection model\Accident_detection_model.h5')
 
 # Load the video file
-video_file = 'D:\Downloads\Main Project\Datasets\Accident2.mp4'
+video_file = 'D:\Downloads\Main Project\Datasets\Accident8.mp4'
 cap = cv2.VideoCapture(video_file)
 
 # Create a new directory to save the classified frames
@@ -36,15 +36,15 @@ while True:
     # Determine whether the frame is an accident or non-accident image based on the predicted probability
     if prediction[1] > THRESHOLD:
         label = 'accident'
-        output_folder = 'D:\Downloads\Main Project\Frames\Accident'
+        output_folder = 'D:\Downloads\Main Project\classify\Accident'
         os.makedirs(output_folder, exist_ok=True)
     else:
         label = 'non-accident'
-        output_folder = 'D:\Downloads\Main Project\Frames\Accident_not'
+        output_folder = 'D:\Downloads\Main Project\classify\Accident not'
         os.makedirs(output_folder, exist_ok=True)
 
     # Save the classified frame to the output folder
-    output_file = os.path.join(output_folder, f'frame_{frame_num:04d}_{label}.jpg')
+    output_file = os.path.join(output_folder, f'test_{frame_num:04d}_{label}.jpg')
     cv2.imwrite(output_file, frame)
 
     # Print progress information
